@@ -90,3 +90,38 @@ function makeTheMagic() {
 };
 
 makeTheMagic();
+
+function makeFirstRow() {
+  var parentHeader = document.getElementById('header-row');
+  for (var i = 0; i < storeHours.length; i++) {
+    var childHeader = document.createElement('th');
+    childHeader.textContent = storeHours[i];
+    parentHeader.appendChild(childHeader);
+  }
+};
+
+makeFirstRow();
+
+function makeOtherRows() {
+  var coffeeRow = document.getElementById('data-table');
+  for (var i = 0; i < allCoffeeLocations.length; i++) {
+    var makeRow = document.createElement('tr');
+    makeRow.setAttribute = 'rowsID';
+    makeRow.textContent = makeCells();
+    coffeeRow.appendChild(makeRow)
+  }
+ function makeCells() = {
+var firstCellInData = document.getElementById('rowsID');
+var makeFirstCell = document.createElement('td')
+makeFirstCell.te
+ var coffeeData = document.getElementById('rowsID');
+    for (var x = 0; x < storeHours.length; x++) {
+      var makeCell = document.createElement('td');
+      makeCell.textContent = allCoffeeLocations[x].prototype.toGoPoundsPerHour + allCoffeeLocations[x].prototype.beansNeededHourlyToMakeCup;
+      //append cell
+    }
+    coffeeData.appendChild(makeCell);
+  }
+  coffeeRow.appendChild(makeRow);
+};
+makeBeanTable();
