@@ -93,6 +93,9 @@ makeTheMagic();
 
 function makeFirstRow() {
   var parentHeader = document.getElementById('header-row');
+  var dailyTotal = document.createElement('th');
+  dailyTotal.textContent = 'Daily Totals';
+  parentHeader.appendChild(dailyTotal);
   for (var i = 0; i < storeHours.length; i++) {
     var childHeader = document.createElement('th');
     childHeader.textContent = storeHours[i];
@@ -102,26 +105,30 @@ function makeFirstRow() {
 
 makeFirstRow();
 
-function makeOtherRows() {
-  var coffeeRow = document.getElementById('data-table');
-  for (var i = 0; i < allCoffeeLocations.length; i++) {
+  function makeOtherRows(cof) {
+    var coffeeRow = document.getElementById('data-table');
     var makeRow = document.createElement('tr');
-    makeRow.setAttribute = 'rowsID';
-    makeRow.textContent = makeCells();
-    coffeeRow.appendChild(makeRow)
-  }
- function makeCells() = {
-var firstCellInData = document.getElementById('rowsID');
-var makeFirstCell = document.createElement('td')
-makeFirstCell.te
- var coffeeData = document.getElementById('rowsID');
+    makeRow.textContent = firstCell;
+
+    var firstCell = document.createElement('td');
+    firstCell.textContent = cof.location;
+    makeRow.appendChild(firstCell);
+
+    var makeSecondCell = document.createElement('td');
+    makeSecondCell.textContent = cof.totalPoundNeededDaily;
+    makeRow.appendChild(makeSecondCell);
+
     for (var x = 0; x < storeHours.length; x++) {
       var makeCell = document.createElement('td');
-      makeCell.textContent = allCoffeeLocations[x].prototype.toGoPoundsPerHour + allCoffeeLocations[x].prototype.beansNeededHourlyToMakeCup;
-      //append cell
+      makeCell.textContent = round((cof.toGoPoundsPerHour[x] + cof.beansNeededHourlyToMakeCup[x]),2);
+      makeRow.appendChild(makeCell);
     }
-    coffeeData.appendChild(makeCell);
+    coffeeRow.appendChild(makeRow);
   }
-  coffeeRow.appendChild(makeRow);
-};
-makeBeanTable();
+
+function makeBeanTable(arr) {
+  for (var index in arr) {
+    makeOtherRows(arr[index]);
+  }
+}
+makeBeanTable(allCoffeeLocations);
