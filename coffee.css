@@ -1,0 +1,21 @@
+* {
+  background: #84817B
+}
+
+h1{
+  margin: .5em;
+  text-align: center;
+  background-color: #2F4F4F;
+  font-family: #84817B
+}
+
+table {
+  margin-top: .05em;
+  border: 3px solid #2F4F4F
+}
+
+th, tr, td {
+  background-color: #5C665D;
+  font-size: 14px;
+  text-align: center;
+}

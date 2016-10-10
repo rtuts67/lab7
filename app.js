@@ -105,26 +105,26 @@ function makeFirstRow() {
 
 makeFirstRow();
 
-  function makeOtherRows(cof) {
-    var coffeeRow = document.getElementById('data-table');
-    var makeRow = document.createElement('tr');
-    makeRow.textContent = firstCell;
+function makeOtherRows(cof) {
+  var coffeeRow = document.getElementById('data-table');
+  var makeRow = document.createElement('tr');
+  makeRow.textContent = firstCell;
 
-    var firstCell = document.createElement('td');
-    firstCell.textContent = cof.location;
-    makeRow.appendChild(firstCell);
+  var firstCell = document.createElement('td');
+  firstCell.textContent = cof.location;
+  makeRow.appendChild(firstCell);
 
-    var makeSecondCell = document.createElement('td');
-    makeSecondCell.textContent = cof.totalPoundNeededDaily;
-    makeRow.appendChild(makeSecondCell);
+  var makeSecondCell = document.createElement('td');
+  makeSecondCell.textContent = cof.totalPoundNeededDaily;
+  makeRow.appendChild(makeSecondCell);
 
-    for (var x = 0; x < storeHours.length; x++) {
-      var makeCell = document.createElement('td');
-      makeCell.textContent = round((cof.toGoPoundsPerHour[x] + cof.beansNeededHourlyToMakeCup[x]),2);
-      makeRow.appendChild(makeCell);
-    }
-    coffeeRow.appendChild(makeRow);
+  for (var x = 0; x < storeHours.length; x++) {
+    var makeCell = document.createElement('td');
+    makeCell.textContent = round((cof.toGoPoundsPerHour[x] + cof.beansNeededHourlyToMakeCup[x]),2);
+    makeRow.appendChild(makeCell);
   }
+  coffeeRow.appendChild(makeRow);
+}
 
 function makeBeanTable(arr) {
   for (var index in arr) {
@@ -132,3 +132,36 @@ function makeBeanTable(arr) {
   }
 }
 makeBeanTable(allCoffeeLocations);
+
+var totalsObject = {
+  totalBeansInStores: [],
+};
+totalsObject.calcTotalBeansInStores = function() {
+  for (var z = 0; z < storeHours.length; z++) {
+    var y = 0;
+    for (var l = 0; l < allCoffeeLocations.length; l++) {
+      y += (allCoffeeLocations[l].toGoPoundsPerHour[z] + allCoffeeLocations[l].beansNeededHourlyToMakeCup[z]);
+    }
+    this.totalBeansInStores.push(y);
+  }
+};
+totalsObject.calcTotalBeansInStores();
+
+function makeLastRow() {
+  var parentLastRow = document.getElementById('footer');
+  var childLastRow = document.createElement('tr');
+  childLastRow.textContent = cell1;
+  var cell1 = document.createElement('td');
+  cell1.textContent = ' ';
+  childLastRow.appendChild(cell1);
+  var cell2 = document.createElement('td');
+  cell2.textContent = 'Total Pounds Needed Hourly at All Stores';
+  childLastRow.appendChild(cell2);
+  for (var total = 0; total < storeHours.length; total ++) {
+    var totalsCell = document.createElement('td');
+    totalsCell.textContent = round((totalsObject.totalBeansInStores[total]), 1);
+    childLastRow.appendChild(totalsCell);
+  }
+  parentLastRow.appendChild(childLastRow);
+};
+makeLastRow();
