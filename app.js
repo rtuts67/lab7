@@ -27,6 +27,7 @@ function Coffeelocation(location, custmin, custmax, averageCupsPerCust, averageP
   this.beansPerDay = 0;
   this.totalPoundNeededDaily = 0;
   this.staffPerHour = [];
+  this.totalStaff = 0;
   allCoffeeLocations.push(this);
 }
 
@@ -64,7 +65,8 @@ Coffeelocation.prototype.calcTotalPoundNeededDaily = function() {
 
 Coffeelocation.prototype.generateStaffNumber = function() {
   for (var i = 0; i < storeHours.length; i++) {
-    this.staffPerHour.push((Math.ceil((round(this.custPerHour[i] / 30),1))));
+    this.staffPerHour.push(Math.ceil(round((this.custPerHour[i] / 30),1)));
+    this.totalStaff += this.staffPerHour[i];
   }
 };
 
@@ -135,6 +137,7 @@ makeBeanTable(allCoffeeLocations);
 
 var totalsObject = {
   totalBeansInStores: [],
+  totalBeansInCompany: 0,
 };
 totalsObject.calcTotalBeansInStores = function() {
   for (var z = 0; z < storeHours.length; z++) {
@@ -152,10 +155,13 @@ function makeLastRow() {
   var childLastRow = document.createElement('tr');
   childLastRow.textContent = cell1;
   var cell1 = document.createElement('td');
-  cell1.textContent = ' ';
+  cell1.textContent = 'Totals';
   childLastRow.appendChild(cell1);
   var cell2 = document.createElement('td');
-  cell2.textContent = 'Total Pounds Needed Hourly at All Stores';
+  for (var s = 0; s < storeHours.length; s++) {
+    totalsObject.totalBeansInCompany += totalsObject.totalBeansInStores[s];
+  };
+  cell2.textContent = totalsObject.totalBeansInCompany;
   childLastRow.appendChild(cell2);
   for (var total = 0; total < storeHours.length; total ++) {
     var totalsCell = document.createElement('td');
@@ -165,3 +171,83 @@ function makeLastRow() {
   parentLastRow.appendChild(childLastRow);
 };
 makeLastRow();
+
+function makeFirstRow2() {
+  var parentHeader2 = document.getElementById('header-row2');
+  var dailyTotal2 = document.createElement('th');
+  dailyTotal2.textContent = 'Daily Employee Totals';
+  parentHeader2.appendChild(dailyTotal2);
+  for (var i = 0; i < storeHours.length; i++) {
+    var childHeader2 = document.createElement('th');
+    childHeader2.textContent = storeHours[i];
+    parentHeader2.appendChild(childHeader2);
+  }
+};
+
+makeFirstRow2();
+
+function makeOtherRows2(coffee) {
+  var coffeeRow2 = document.getElementById('employee-table');
+  var makeRow2 = document.createElement('tr');
+  makeRow2.textContent = firstCell2;
+
+  var firstCell2 = document.createElement('td');
+  firstCell2.textContent = coffee.location;
+  makeRow2.appendChild(firstCell2);
+
+  var makeSecondCell2 = document.createElement('td');
+  makeSecondCell2.textContent = coffee.totalStaff;
+  makeRow2.appendChild(makeSecondCell2);
+
+  for (var x = 0; x < storeHours.length; x++) {
+    var makeCell2 = document.createElement('td');
+    makeCell2.textContent = coffee.staffPerHour[x];
+    makeRow2.appendChild(makeCell2);
+  }
+  coffeeRow2.appendChild(makeRow2);
+}
+
+function makeStaffTable(arr) {
+  for (var index in arr) {
+    makeOtherRows2(arr[index]);
+  }
+}
+makeStaffTable(allCoffeeLocations);
+
+var totalsObject2 = {
+  totalStaffInStores: [],
+  totalStaffInComp: 0,
+};
+
+totalsObject2.calcTotalStaffInStores = function() {
+  for (var z = 0; z < storeHours.length; z++) {
+    var y = 0;
+    for (var l = 0; l < allCoffeeLocations.length; l++) {
+      y += allCoffeeLocations[l].staffPerHour[z];
+    }
+    this.totalStaffInStores.push(y);
+  }
+};
+totalsObject2.calcTotalStaffInStores();
+
+function makeLastRow2() {
+  var parentLastRow2 = document.getElementById('footer2');
+  var childLastRow2 = document.createElement('tr');
+  childLastRow2.textContent = cellc;
+  var cellc = document.createElement('td');
+  cellc.textContent = 'Totals';
+  childLastRow2.appendChild(cellc);
+  var celld = document.createElement('td');
+  for (var p = 0; p < storeHours.length; p++) {
+    totalsObject2.totalStaffInComp += totalsObject2.totalStaffInStores[p];
+  };
+  celld.textContent = totalsObject2.totalStaffInComp;
+  childLastRow2.appendChild(celld);
+  for (var total = 0; total < storeHours.length; total ++) {
+    var totalsCell2 = document.createElement('td');
+    totalsCell2.textContent = round((totalsObject2.totalStaffInStores[total]), 1);
+    childLastRow2.appendChild(totalsCell2);
+  }
+  parentLastRow2.appendChild(childLastRow2);
+}
+makeLastRow2();
