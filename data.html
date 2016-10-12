@@ -18,8 +18,30 @@
   </table>
   <br>
   <br>
-  <br>
-  <br>
+  <form id="form">
+    <feildset="formpretty">
+      <legend>Enter new store here:</legend>
+      <div id='formstuff'>
+      <label for="location">Store Name:</label>
+            <input type="text" location="location" required>
+      </div>
+      <label for="custmin">Minimum customer per hour:</label>
+      <input type="number" name="custmin" min="0" required>
+      <br>
+      <label for="custmax">Maximum customer per hour:</label>
+      <input type="number" name="custmax" max="500" required>
+      <br>
+      <label for="averageCupsPerCust">Average cups per customer:</label>
+      <input type="number" name="averageCupsPerCust" max="500" required>
+      <br>
+      <label for="averagePoundsPerCust">Average pounds per customer:</label>
+      <input type="number" name="averagePoundsPerCust" max="500" required>
+      <br>
+      <input type="submit" value="Add the store">
+    </fieldset>
+  </form>
+<br>
+<br>
   <table id="employee-table">
     <thead>
       <tr id="header-row2">
