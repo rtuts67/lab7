@@ -91,8 +91,6 @@ function makeTheMagic() {
   }
 };
 
-makeTheMagic();
-
 function makeFirstRow() {
   var parentHeader = document.getElementById('header-row');
   var dailyTotal = document.createElement('th');
@@ -104,8 +102,6 @@ function makeFirstRow() {
     parentHeader.appendChild(childHeader);
   }
 };
-
-makeFirstRow();
 
 function makeOtherRows(cof) {
   var coffeeRow = document.getElementById('data-table');
@@ -126,19 +122,19 @@ function makeOtherRows(cof) {
     makeRow.appendChild(makeCell);
   }
   coffeeRow.appendChild(makeRow);
-}
+};
 
 function makeBeanTable(arr) {
   for (var index in arr) {
     makeOtherRows(arr[index]);
   }
-}
-makeBeanTable(allCoffeeLocations);
+};
 
 var totalsObject = {
   totalBeansInStores: [],
   totalBeansInCompany: 0,
 };
+
 totalsObject.calcTotalBeansInStores = function() {
   for (var z = 0; z < storeHours.length; z++) {
     var y = 0;
@@ -148,7 +144,6 @@ totalsObject.calcTotalBeansInStores = function() {
     this.totalBeansInStores.push(y);
   }
 };
-totalsObject.calcTotalBeansInStores();
 
 function makeLastRow() {
   var parentLastRow = document.getElementById('footer');
@@ -170,7 +165,6 @@ function makeLastRow() {
   }
   parentLastRow.appendChild(childLastRow);
 };
-makeLastRow();
 
 function makeFirstRow2() {
   var parentHeader2 = document.getElementById('header-row2');
@@ -183,8 +177,6 @@ function makeFirstRow2() {
     parentHeader2.appendChild(childHeader2);
   }
 };
-
-makeFirstRow2();
 
 function makeOtherRows2(coffee) {
   var coffeeRow2 = document.getElementById('employee-table');
@@ -212,7 +204,6 @@ function makeStaffTable(arr) {
     makeOtherRows2(arr[index]);
   }
 }
-makeStaffTable(allCoffeeLocations);
 
 var totalsObject2 = {
   totalStaffInStores: [],
@@ -228,7 +219,6 @@ totalsObject2.calcTotalStaffInStores = function() {
     this.totalStaffInStores.push(y);
   }
 };
-totalsObject2.calcTotalStaffInStores();
 
 function makeLastRow2() {
   var parentLastRow2 = document.getElementById('footer2');
@@ -250,4 +240,32 @@ function makeLastRow2() {
   }
   parentLastRow2.appendChild(childLastRow2);
 }
+
+makeTheMagic();
+makeFirstRow();
+makeBeanTable(allCoffeeLocations);
+totalsObject.calcTotalBeansInStores();
+makeLastRow();
+makeFirstRow2();
+makeStaffTable(allCoffeeLocations);
+totalsObject2.calcTotalStaffInStores();
 makeLastRow2();
+
+function handleFormSubmission(event) {
+  event.preventDefault();
+  console.log();
+  var location = event.target.name.value;
+  var custmin = event.target.custmin.value;
+  var custmax = event.target.custmax.value;
+  var averageCupsPerCust = event.target.averageCupsPerCust.value;
+  var averagePoundsPerCust = event.target.averagePoundsPerCust.value;
+
+  var newCoffeelocation = new Coffeelocation(location, custmin, custmax, averageCupsPerCust, averagePoundsPerCust);
+  makeTheMagic();
+
+  //document.getElementById('footer').innerHTML = '';
+  makeOtherRows(newCoffeelocation);
+  //makeLastRow();
+}
+
+form.addEventListener('submit', handleFormSubmission);
