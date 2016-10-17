@@ -2,6 +2,10 @@
   background: #84817B
 }
 
+body {
+  font-size: 20px
+}
+
 h1{
   margin: .5em;
   text-align: center;
@@ -9,6 +13,51 @@ h1{
   font-family: #84817B
 }
 
+h2, p, ul, li {
+  font-family: 'Indie Flower', cursive;
+  font-size: 20px;
+  text-align: left;
+}
+
+.image {
+  display: block;
+  margin-left: auto;
+  margin-right: auto;
+  width: auto;
+  height: auto;
+  padding-top: 10px;
+  padding-bottom: 10px
+}
+
+#pics {
+  display: block;
+  width: auto;
+  height: auto;
+  margin-left: auto;
+  margin-right: auto;
+  padding-top: 3px;
+  padding-bottom: 3px
+}
+
+#pics1 {
+  margin-left: 220px;
+  display: inline;
+  width: auto;
+  height: auto;
+  float: right
+  padding-top: 3px;
+  padding-bottom: 3px
+}
+
+#pics2 {
+  margin-right: auto;
+  display: inline;
+  width: auto;
+  height: auto;
+  float: left;
+  padding-top: 3px;
+  padding-bottom: 3px
+}
 table {
   margin-top: .05em;
   border: 3px solid #2F4F4F
