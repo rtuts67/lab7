@@ -141,7 +141,7 @@ totalsObject.calcTotalBeansInStores = function() {
     for (var l = 0; l < allCoffeeLocations.length; l++) {
       y += (allCoffeeLocations[l].toGoPoundsPerHour[z] + allCoffeeLocations[l].beansNeededHourlyToMakeCup[z]);
     }
-    this.totalBeansInStores.push(y);
+    round(this.totalBeansInStores.push(y),2);
   }
 };
 
@@ -251,10 +251,15 @@ makeStaffTable(allCoffeeLocations);
 totalsObject2.calcTotalStaffInStores();
 makeLastRow2();
 
+function clearBeanTotal() {
+  totalsObject.totalBeansInStores = [];
+  totalsObject.otalBeansInCompany = 0;
+};
+
 function handleFormSubmission(event) {
   event.preventDefault();
   console.log();
-  var location = event.target.name.value;
+  var location = event.target.location.value;
   var custmin = event.target.custmin.value;
   var custmax = event.target.custmax.value;
   var averageCupsPerCust = event.target.averageCupsPerCust.value;
@@ -263,9 +268,11 @@ function handleFormSubmission(event) {
   var newCoffeelocation = new Coffeelocation(location, custmin, custmax, averageCupsPerCust, averagePoundsPerCust);
   makeTheMagic();
 
-  //document.getElementById('footer').innerHTML = '';
+  document.getElementById('footer').innerHTML = '';
   makeOtherRows(newCoffeelocation);
-  //makeLastRow();
+  clearBeanTotal();
+  totalsObject.calcTotalBeansInStores();
+  makeLastRow();
 }
 
 form.addEventListener('submit', handleFormSubmission);
