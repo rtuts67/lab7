@@ -66,7 +66,7 @@ Coffeelocation.prototype.calcTotalPoundNeededDaily = function() {
 Coffeelocation.prototype.generateStaffNumber = function() {
   for (var i = 0; i < storeHours.length; i++) {
     this.staffPerHour.push(Math.ceil(round((this.custPerHour[i] / 30),1)));
-    this.totalStaff += this.staffPerHour[i];
+    round((this.totalStaff += this.staffPerHour[i]),1);
   }
 };
 
@@ -154,7 +154,7 @@ function makeLastRow() {
   childLastRow.appendChild(cell1);
   var cell2 = document.createElement('td');
   for (var s = 0; s < storeHours.length; s++) {
-    totalsObject.totalBeansInCompany += totalsObject.totalBeansInStores[s];
+    round((totalsObject.totalBeansInCompany += totalsObject.totalBeansInStores[s]),1);
   };
   cell2.textContent = totalsObject.totalBeansInCompany;
   childLastRow.appendChild(cell2);
@@ -253,17 +253,17 @@ makeLastRow2();
 
 function clearBeanTotal() {
   totalsObject.totalBeansInStores = [];
-  totalsObject.otalBeansInCompany = 0;
+  totalsObject.totalBeansInCompany = 0;
 };
 
 function handleFormSubmission(event) {
   event.preventDefault();
   console.log();
   var location = event.target.location.value;
-  var custmin = event.target.custmin.value;
-  var custmax = event.target.custmax.value;
-  var averageCupsPerCust = event.target.averageCupsPerCust.value;
-  var averagePoundsPerCust = event.target.averagePoundsPerCust.value;
+  var custmin = parseFloat(event.target.custmin.value);
+  var custmax = parseFloat(event.target.custmax.value);
+  var averageCupsPerCust = parseFloat((parseFloat(event.target.averageCupsPerCust.value).toFixed(2)));
+  var averagePoundsPerCust = parseFloat((parseFloat(event.target.averagePoundsPerCust.value).toFixed(2)));
 
   var newCoffeelocation = new Coffeelocation(location, custmin, custmax, averageCupsPerCust, averagePoundsPerCust);
   makeTheMagic();
