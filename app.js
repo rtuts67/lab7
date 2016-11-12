@@ -266,7 +266,7 @@ function handleFormSubmission(event) {
   var averagePoundsPerCust = parseFloat((parseFloat(event.target.averagePoundsPerCust.value).toFixed(2)));
 
   var newCoffeelocation = new Coffeelocation(location, custmin, custmax, averageCupsPerCust, averagePoundsPerCust);
-  makeTheMagic();
+  newCoffeelocation.callAllTheThings();
 
   document.getElementById('footer').innerHTML = '';
   makeOtherRows(newCoffeelocation);
